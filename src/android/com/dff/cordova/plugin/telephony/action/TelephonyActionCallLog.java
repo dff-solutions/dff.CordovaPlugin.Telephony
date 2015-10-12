@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.calls.action;
+package com.dff.cordova.plugin.telephony.action;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,12 +13,11 @@ import org.json.JSONObject;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
-import android.util.Log;
-
 import com.dff.cordova.plugin.common.action.CordovaAction;
+import com.dff.cordova.plugin.log.CordovaPluginLog;
 
-public class CallsActionCallLog extends CordovaAction {
-	public CallsActionCallLog(String action, JSONArray args,
+public class TelephonyActionCallLog extends CordovaAction {
+	public TelephonyActionCallLog(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
 		super(action, args, callbackContext, cordova);
 	}
@@ -37,13 +36,12 @@ public class CallsActionCallLog extends CordovaAction {
 		Map.Entry<Integer, String> me;
 		
 		String[] columnNames = managedCursor.getColumnNames();
-		Log.i(this.getClass().getName(), "columnsNames: " + columnNames.toString());
 		
 		for (int i = 0; i < columnNames.length; i++) {
 			columnName = columnNames[i];
 			columnIndex = managedCursor.getColumnIndex(columnName);
 			columnMap.put(columnIndex, columnName);
-			// Log.d(this.getClass().getName(), columnName + " " + columnIndex);
+			// CordovaPluginLog.d(this.getClass().getName(), columnName + " " + columnIndex);
 		}
 				
 		int chachedNumberType;
@@ -208,11 +206,11 @@ public class CallsActionCallLog extends CordovaAction {
 			
 		}
 		catch(JSONException e) {
-			Log.e(this.getClass().getName(), e.getMessage(), e);
+			CordovaPluginLog.e(this.getClass().getName(), e.getMessage(), e);
 			callbackContext.error(e.getMessage());
 		}
 		catch(Exception ex) {
-			Log.e(this.getClass().getName(), ex.getMessage(), ex);
+			CordovaPluginLog.e(this.getClass().getName(), ex.getMessage(), ex);
 			callbackContext.error(ex.getMessage());
 		}
 		

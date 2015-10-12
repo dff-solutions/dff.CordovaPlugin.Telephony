@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.calls.action;
+package com.dff.cordova.plugin.telephony.action;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -8,13 +8,13 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import com.dff.cordova.plugin.common.action.CordovaAction;
+import com.dff.cordova.plugin.log.CordovaPluginLog;
 
-public class CallsActionCall extends CordovaAction {
+public class TelephonyActionCall extends CordovaAction {
 
-	public CallsActionCall(String action, JSONArray args,
+	public TelephonyActionCall(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
 		super(action, args, callbackContext, cordova);
 	}
@@ -42,11 +42,11 @@ public class CallsActionCall extends CordovaAction {
 			}
 		}
 		catch(JSONException e) {
-			Log.e(this.getClass().getName(), e.getMessage(), e);
+			CordovaPluginLog.e(this.getClass().getName(), e.getMessage(), e);
 			this.callbackContext.error(e.getMessage());
 		}
 		catch(Exception ex) {
-			Log.e(this.getClass().getName(), ex.getMessage(), ex);
+			CordovaPluginLog.e(this.getClass().getName(), ex.getMessage(), ex);
 			this.callbackContext.error(ex.getMessage());
 		}
 	}

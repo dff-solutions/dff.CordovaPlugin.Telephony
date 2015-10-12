@@ -4,7 +4,8 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 
-import android.content.Context;
+import com.dff.cordova.plugin.log.CordovaPluginLog;
+
 import android.util.Log;
 
 public abstract class CordovaAction implements Runnable {
@@ -23,7 +24,7 @@ public abstract class CordovaAction implements Runnable {
 	
 	@Override
 	public void run() {
-		Log.i(this.getClass().getName(), "running action: " + this.action + "; args: " + this.args);
+		CordovaPluginLog.i(this.getClass().getName(), "running action: " + this.action + "; args: " + this.args);
 	}
 
 }
