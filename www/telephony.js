@@ -31,4 +31,8 @@ self.onLog = function (success, error) {
     cordova.exec(success, error, feature, "onLog", []);
 };
 
+self.telephonyinfo = function (success, error) {
+    cordova.exec(success, error, feature, "telephonyinfo", []);
+}; 
+
 module.exports = self;

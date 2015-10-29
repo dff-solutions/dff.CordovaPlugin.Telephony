@@ -12,6 +12,7 @@ import com.dff.cordova.plugin.log.CordovaPluginLog;
 import com.dff.cordova.plugin.log.LogListener;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCall;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCallLog;
+import com.dff.cordova.plugin.telephony.action.TelephonyActionTelephonyInfo;
 
 /**
  * This plugin implements an interface for mocking gps position.
@@ -96,6 +97,15 @@ public class TelephonyPlugin extends CordovaPlugin {
     	else if (action.equals("call")) {
     		
     		cordovaAction = new TelephonyActionCall(
+    				action,
+    				args,
+    				callbackContext,
+    				this.cordova
+				);
+    	}
+    	else if (action.equals("telephonyinfo")) {
+    		
+    		cordovaAction = new TelephonyActionTelephonyInfo(
     				action,
     				args,
     				callbackContext,

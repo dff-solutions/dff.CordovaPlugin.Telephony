@@ -26,17 +26,18 @@
             <uses-permission android:name="android.permission.READ_CALL_LOG" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
             <uses-permission android:name="android.permission.CALL_PHONE" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
         </config-file>
 
-        <source-file src="src/android/com/dff/cordova/plugin/common/action/CordovaAction.java" target-dir="src/com/dff/cordova/plugin/common/action" />
-        <source-file src="src/android/com/dff/cordova/plugin/log/AbstractLogListener.java" target-dir="src/com/dff/cordova/plugin/log" />
-        <source-file src="src/android/com/dff/cordova/plugin/log/CordovaPluginLog.java" target-dir="src/com/dff/cordova/plugin/log" />
-        <source-file src="src/android/com/dff/cordova/plugin/log/LogListener.java" target-dir="src/com/dff/cordova/plugin/log" />
-        <source-file src="src/android/com/dff/cordova/plugin/log/LogListenerInterface.java" target-dir="src/com/dff/cordova/plugin/log" />
-        <source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionCall.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-        <source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-        <source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPhoneStateListener.java" target-dir="src/com/dff/cordova/plugin/telephony" />
-        <source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPlugin.java" target-dir="src/com/dff/cordova/plugin/telephony" />
+		<source-file src="src/android/com/dff/cordova/plugin/common/action/CordovaAction.java" target-dir="src/com/dff/cordova/plugin/common/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/log/AbstractLogListener.java" target-dir="src/com/dff/cordova/plugin/log" />
+		<source-file src="src/android/com/dff/cordova/plugin/log/CordovaPluginLog.java" target-dir="src/com/dff/cordova/plugin/log" />
+		<source-file src="src/android/com/dff/cordova/plugin/log/LogListener.java" target-dir="src/com/dff/cordova/plugin/log" />
+		<source-file src="src/android/com/dff/cordova/plugin/log/LogListenerInterface.java" target-dir="src/com/dff/cordova/plugin/log" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionCall.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionTelephonyInfo.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPhoneStateListener.java" target-dir="src/com/dff/cordova/plugin/telephony" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPlugin.java" target-dir="src/com/dff/cordova/plugin/telephony" />
      </platform>
 </plugin>
-
