@@ -23,6 +23,7 @@ public class TelephonyActionCall extends CordovaAction {
 	public void run() {
 		super.run();
 		String number;
+		Uri numberUri;
 		
 		try {
 			JSONObject jsonArgs = this.args.getJSONObject(0);
@@ -35,8 +36,12 @@ public class TelephonyActionCall extends CordovaAction {
 			}
 			else {
 				number = jsonArgs.getString("number");
+				numberUri = Uri.parse("tel:" + Uri.encode(number));
+				
+//				CordovaPluginLog.d(this.getClass().getName(), numberUri.toString());
+				
 				Intent callIntent = new Intent(Intent.ACTION_CALL);
-				callIntent.setData(Uri.parse("tel:" + number));
+				callIntent.setData(numberUri);
 				this.cordova.getActivity().startActivity(callIntent);
 				this.callbackContext.success();
 			}
