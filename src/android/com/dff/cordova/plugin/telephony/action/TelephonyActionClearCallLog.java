@@ -23,7 +23,7 @@ public class TelephonyActionClearCallLog extends CordovaAction {
 		
 		try {
 			JSONObject jsonArgs = this.args.getJSONObject(0);
-			JSONArray jsonSelectionArgs = new JSONArray();
+			JSONArray jsonSelectionArgs;
 			String where = "";
 			
 			String[] selectionArgs = new String[] {};
@@ -31,10 +31,12 @@ public class TelephonyActionClearCallLog extends CordovaAction {
 			if (jsonArgs != null) {
 				where = jsonArgs.optString("where", where);
 				jsonSelectionArgs = jsonArgs.optJSONArray("selectionArgs");
-				selectionArgs = new String[jsonSelectionArgs.length()];
-				
-				for (int i = 0; i < jsonSelectionArgs.length(); i++) {
-					selectionArgs[i] = jsonSelectionArgs.getString(i);
+				if (jsonSelectionArgs != null) {
+					selectionArgs = new String[jsonSelectionArgs.length()];
+					
+					for (int i = 0; i < jsonSelectionArgs.length(); i++) {
+						selectionArgs[i] = jsonSelectionArgs.getString(i);
+					}
 				}
 			}
 			
