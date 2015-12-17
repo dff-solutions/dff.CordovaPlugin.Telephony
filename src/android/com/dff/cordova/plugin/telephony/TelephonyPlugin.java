@@ -8,11 +8,12 @@ import org.json.JSONException;
 import android.content.Intent;
 
 import com.dff.cordova.plugin.common.action.CordovaAction;
-import com.dff.cordova.plugin.log.CordovaPluginLog;
-import com.dff.cordova.plugin.log.LogListener;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCall;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCallLog;
+import com.dff.cordova.plugin.telephony.action.TelephonyActionClearCallLog;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionTelephonyInfo;
+import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
+import com.dff.cordova.plugin.telephony.log.LogListener;
 
 /**
  * This plugin implements an interface for mocking gps position.
@@ -30,10 +31,13 @@ public class TelephonyPlugin extends CordovaPlugin {
     	super.pluginInitialize();
     	this.phoneStateListener = new TelephonyPhoneStateListener(this.cordova);
     	this.logListener = new LogListener();
+    	CordovaPluginLog.addLogListner(this.logListener);
     }
     
     @Override
     public void onDestroy() {
+    	super.onDestroy();
+    	CordovaPluginLog.removeLogListener(this.logListener);
     	this.phoneStateListener.onDestroy();
     	this.logListener.onDestroy();
     }
@@ -81,13 +85,22 @@ public class TelephonyPlugin extends CordovaPlugin {
     		this.phoneStateListener.setOnCallStateChangedCallback(callbackContext);
     		return true;
     	}
-    	if (action.equals("onLog")) {
+    	else if (action.equals("onLog")) {
     		this.logListener.setOnLogCallBack(callbackContext);
     		return true;
     	}
     	else if (action.equals("calllog")) {
     		
     		cordovaAction = new TelephonyActionCallLog(
+    				action,
+    				args,
+    				callbackContext,
+    				this.cordova
+				);
+    	}
+    	else if (action.equals("clearCalllog")) {
+    		
+    		cordovaAction = new TelephonyActionClearCallLog(
     				action,
     				args,
     				callbackContext,

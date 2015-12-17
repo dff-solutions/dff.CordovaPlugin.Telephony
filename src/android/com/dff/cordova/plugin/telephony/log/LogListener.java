@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.log;
+package com.dff.cordova.plugin.telephony.log;
 
 import org.json.JSONException;
 import org.json.JSONObject;

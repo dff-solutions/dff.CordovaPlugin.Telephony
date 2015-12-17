@@ -4,9 +4,7 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 
-import com.dff.cordova.plugin.log.CordovaPluginLog;
-
-import android.util.Log;
+import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
 
 public abstract class CordovaAction implements Runnable {
 

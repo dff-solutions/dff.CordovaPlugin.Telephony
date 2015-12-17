@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.log;
+package com.dff.cordova.plugin.telephony.log;
 
 public interface LogListenerInterface {	
 	public void onLog(int type, String tag, String msg);

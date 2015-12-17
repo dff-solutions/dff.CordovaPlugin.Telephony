@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.log;
+package com.dff.cordova.plugin.telephony.log;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;

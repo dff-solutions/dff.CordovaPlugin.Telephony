@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.dff.cordova.plugin.log;
+package com.dff.cordova.plugin.telephony.log;
 
 import java.util.Iterator;
 import java.util.Vector;

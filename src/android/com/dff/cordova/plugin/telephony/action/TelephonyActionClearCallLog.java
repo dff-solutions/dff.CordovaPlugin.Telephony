@@ -6,45 +6,40 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.provider.CallLog;
 
 import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
 
-public class TelephonyActionCall extends CordovaAction {
-
-	public TelephonyActionCall(String action, JSONArray args,
+public class TelephonyActionClearCallLog extends CordovaAction {
+	public TelephonyActionClearCallLog(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
 		super(action, args, callbackContext, cordova);
 	}
-
+	
 	@Override
 	public void run() {
 		super.run();
-		String number;
-		Uri numberUri;
 		
 		try {
 			JSONObject jsonArgs = this.args.getJSONObject(0);
+			JSONArray jsonSelectionArgs = new JSONArray();
+			String where = "";
 			
-			if (jsonArgs == null) {
-				this.callbackContext.error("no args given");
-			}
-			else if (!jsonArgs.has("number")) {
-				this.callbackContext.error("number missing");
-			}
-			else {
-				number = jsonArgs.getString("number");
-				numberUri = Uri.parse("tel:" + Uri.encode(number));
+			String[] selectionArgs = new String[] {};
+			
+			if (jsonArgs != null) {
+				where = jsonArgs.optString("where", where);
+				jsonSelectionArgs = jsonArgs.optJSONArray("selectionArgs");
+				selectionArgs = new String[jsonSelectionArgs.length()];
 				
-//				CordovaPluginLog.d(this.getClass().getName(), numberUri.toString());
-				
-				Intent callIntent = new Intent(Intent.ACTION_CALL);
-				callIntent.setData(numberUri);
-				this.cordova.getActivity().startActivity(callIntent);
-				this.callbackContext.success();
+				for (int i = 0; i < jsonSelectionArgs.length(); i++) {
+					selectionArgs[i] = jsonSelectionArgs.getString(i);
+				}
 			}
+			
+			int deleted = this.cordova.getActivity().getApplicationContext().getContentResolver().delete(CallLog.Calls.CONTENT_URI, where, selectionArgs);			
+			this.callbackContext.success(deleted);
 		}
 		catch(JSONException e) {
 			CordovaPluginLog.e(this.getClass().getName(), e.getMessage(), e);
@@ -55,4 +50,5 @@ public class TelephonyActionCall extends CordovaAction {
 			this.callbackContext.error(ex.getMessage());
 		}
 	}
+
 }

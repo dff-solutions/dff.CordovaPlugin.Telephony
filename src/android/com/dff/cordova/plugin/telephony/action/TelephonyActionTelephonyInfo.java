@@ -10,7 +10,7 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.dff.cordova.plugin.common.action.CordovaAction;
-import com.dff.cordova.plugin.log.CordovaPluginLog;
+import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
 
 public class TelephonyActionTelephonyInfo extends CordovaAction {
 

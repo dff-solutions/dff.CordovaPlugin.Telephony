@@ -19,6 +19,10 @@ self.getCallsLog = function (success, error, args) {
     cordova.exec(success, error, feature, "calllog", [args]);
 };
 
+self.clearCalllog = function (success, error, args) {
+    cordova.exec(success, error, feature, "clearCalllog", [args]);
+}
+
 self.call = function (success, error, args) {
     cordova.exec(success, error, feature, "call", [args]);
 };
@@ -33,6 +37,6 @@ self.onLog = function (success, error) {
 
 self.telephonyinfo = function (success, error) {
     cordova.exec(success, error, feature, "telephonyinfo", []);
-}; 
+};
 
 module.exports = self;

@@ -13,8 +13,9 @@ import org.json.JSONObject;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+
 import com.dff.cordova.plugin.common.action.CordovaAction;
-import com.dff.cordova.plugin.log.CordovaPluginLog;
+import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
 
 public class TelephonyActionCallLog extends CordovaAction {
 	public TelephonyActionCallLog(String action, JSONArray args,
