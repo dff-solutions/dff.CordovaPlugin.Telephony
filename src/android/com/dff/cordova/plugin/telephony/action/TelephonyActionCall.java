@@ -13,6 +13,7 @@ import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
 
 public class TelephonyActionCall extends CordovaAction {
+	public static final String LOG_TAG = "TelephonyActionCall";
 
 	public TelephonyActionCall(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
@@ -38,7 +39,7 @@ public class TelephonyActionCall extends CordovaAction {
 				number = jsonArgs.getString("number");
 				numberUri = Uri.parse("tel:" + Uri.encode(number));
 				
-//				CordovaPluginLog.d(this.getClass().getName(), numberUri.toString());
+				CordovaPluginLog.i(LOG_TAG, "calling number: " + number + "; number uri: " +  numberUri.toString());
 				
 				Intent callIntent = new Intent(Intent.ACTION_CALL);
 				callIntent.setData(numberUri);
@@ -47,11 +48,11 @@ public class TelephonyActionCall extends CordovaAction {
 			}
 		}
 		catch(JSONException e) {
-			CordovaPluginLog.e(this.getClass().getName(), e.getMessage(), e);
+			CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);
 			this.callbackContext.error(e.getMessage());
 		}
 		catch(Exception ex) {
-			CordovaPluginLog.e(this.getClass().getName(), ex.getMessage(), ex);
+			CordovaPluginLog.e(LOG_TAG, ex.getMessage(), ex);
 			this.callbackContext.error(ex.getMessage());
 		}
 	}
