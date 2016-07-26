@@ -10,7 +10,7 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.dff.cordova.plugin.common.action.CordovaAction;
-import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
 public class TelephonyActionTelephonyInfo extends CordovaAction {
 
@@ -221,7 +221,7 @@ public class TelephonyActionTelephonyInfo extends CordovaAction {
 			jsonSimInfo.put("line1Number", telephonyManager.getLine1Number());
 			jsonSimInfo.put("mmsUAProfUrl", telephonyManager.getMmsUAProfUrl());
 			jsonSimInfo.put("mmsUserAgent", telephonyManager.getMmsUserAgent());
-			jsonSimInfo.put("neighboringCellInfo", telephonyManager.getNeighboringCellInfo());
+//			jsonSimInfo.put("neighboringCellInfo", telephonyManager.getNeighboringCellInfo());
 			jsonSimInfo.put("networkCountryIso", telephonyManager.getNetworkCountryIso());
 			jsonSimInfo.put("networkOperator", telephonyManager.getNetworkOperator());
 			jsonSimInfo.put("networkOperatorName", telephonyManager.getNetworkOperatorName());

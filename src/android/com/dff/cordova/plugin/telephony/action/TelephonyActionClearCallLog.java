@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import android.provider.CallLog;
 
 import com.dff.cordova.plugin.common.action.CordovaAction;
-import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
 public class TelephonyActionClearCallLog extends CordovaAction {
 	public TelephonyActionClearCallLog(String action, JSONArray args,

@@ -1,28 +1,33 @@
 package com.dff.cordova.plugin.telephony;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.content.Intent;
-
+import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.action.CordovaAction;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCall;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCallLog;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionClearCallLog;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionTelephonyInfo;
-import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
-import com.dff.cordova.plugin.telephony.log.LogListener;
+
+import android.content.Intent;
+
 
 /**
  * This plugin implements an interface for mocking gps position.
  *
  * @author dff solutions
  */
-public class TelephonyPlugin extends CordovaPlugin {
+public class TelephonyPlugin extends CommonPlugin {
+	private static final String LOG_TAG = "com.dff.cordova.plugin.telephony.TelephonyPlugin";
+	
 	private TelephonyPhoneStateListener phoneStateListener;
-	private LogListener logListener;
+	
+	public TelephonyPlugin() {
+		super();
+	}
 
    /**
 	* Called after plugin construction and fields have been initialized.
@@ -30,16 +35,12 @@ public class TelephonyPlugin extends CordovaPlugin {
     public void pluginInitialize() {
     	super.pluginInitialize();
     	this.phoneStateListener = new TelephonyPhoneStateListener(this.cordova);
-    	this.logListener = new LogListener();
-    	CordovaPluginLog.addLogListner(this.logListener);
     }
     
     @Override
     public void onDestroy() {
     	super.onDestroy();
-    	CordovaPluginLog.removeLogListener(this.logListener);
     	this.phoneStateListener.onDestroy();
-    	this.logListener.onDestroy();
     }
     
     /**
@@ -54,7 +55,7 @@ public class TelephonyPlugin extends CordovaPlugin {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    	CordovaPluginLog.i(this.getClass().getName(), "onActivityResult - requestCode: " + requestCode + "; resultCode: " + resultCode + "; intent: " + intent.toString());
+    	CordovaPluginLog.i(LOG_TAG, "onActivityResult - requestCode: " + requestCode + "; resultCode: " + resultCode + "; intent: " + intent.toString());
     }
     
     /**
@@ -79,14 +80,10 @@ public class TelephonyPlugin extends CordovaPlugin {
         throws JSONException {
     	CordovaAction cordovaAction = null;
 		
-    	CordovaPluginLog.i(this.getClass().getName(), "call for action: " + action + "; args: " + args);
+    	CordovaPluginLog.i(LOG_TAG, "call for action: " + action + "; args: " + args);
     	
     	if (action.equals("onCallStateChanged")) {
     		this.phoneStateListener.setOnCallStateChangedCallback(callbackContext);
-    		return true;
-    	}
-    	else if (action.equals("onLog")) {
-    		this.logListener.setOnLogCallBack(callbackContext);
     		return true;
     	}
     	else if (action.equals("calllog")) {
@@ -127,11 +124,10 @@ public class TelephonyPlugin extends CordovaPlugin {
     	}
     	
     	if (cordovaAction != null) {
-    		cordova.getThreadPool().execute(cordovaAction);
-    		// cordova.getActivity().runOnUiThread(cordovaAction);    		
+    		cordova.getThreadPool().execute(cordovaAction);   		
             return true;
     	}    	
 
-        return false;
+    	return super.execute(action, args, callbackContext);
     }
 }

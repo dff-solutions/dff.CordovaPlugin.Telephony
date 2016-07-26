@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.dff.cordova.plugin.common.action.CordovaAction;
-import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
 public class TelephonyActionCall extends CordovaAction {
 	public static final String LOG_TAG = "TelephonyActionCall";
