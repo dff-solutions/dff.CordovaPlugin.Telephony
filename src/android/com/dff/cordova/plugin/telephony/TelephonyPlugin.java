@@ -79,14 +79,7 @@ public class TelephonyPlugin extends CommonPlugin {
     		}   		    		
     	}
     	
-    	// execute all actions anyway. If permission is missing the error should be handled
-    	for (CordovaAction cordovaAction : this.actions) {
-			cordova.getThreadPool().execute(cordovaAction);
-    		
-    		if (!this.actions.remove(cordovaAction)) {
-    			CordovaPluginLog.e(LOG_TAG, "could not remove action from list: " + cordovaAction.toString());
-    		}
-    	}
+    	this.execute();
     }
     
     /**
@@ -126,7 +119,7 @@ public class TelephonyPlugin extends CommonPlugin {
         throws JSONException {
     	CordovaAction cordovaAction = null;
 		
-    	CordovaPluginLog.i(this.getClass().getName(), "call for action: " + action + "; args: " + args);
+    	CordovaPluginLog.i(LOG_TAG, "call for action: " + action + "; args: " + args);
     	
     	if (action.equals("onCallStateChanged")) {
     		this.phoneStateListener.setOnCallStateChangedCallback(callbackContext);
@@ -171,10 +164,38 @@ public class TelephonyPlugin extends CommonPlugin {
     	
     	if (cordovaAction != null) {
     		actions.add(cordovaAction);
-    		this.cordova.requestPermissions(this, 0, permissions);    		
+    		
+    		if (this.hasPermissions(permissions)) {
+    			this.execute();
+    		}
+    		else {
+    			this.cordova.requestPermissions(this, 0, permissions);
+    		}
+    		    		
             return true;
     	}    	
 
         return super.execute(action, args, callbackContext);
     }
+	
+	private boolean hasPermissions(String[] permissions) {		
+		for (String p : permissions) {
+			if (!this.cordova.hasPermission(p)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private void execute() {
+    	// execute all actions anyway. If permission is missing the error should be handled by action
+    	for (CordovaAction cordovaAction : this.actions) {
+			cordova.getThreadPool().execute(cordovaAction);
+    		
+    		if (!this.actions.remove(cordovaAction)) {
+    			CordovaPluginLog.e(LOG_TAG, "could not remove action from list: " + cordovaAction.toString());
+    		}
+    	}
+	}
 }

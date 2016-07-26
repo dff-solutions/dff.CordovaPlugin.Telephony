@@ -28,7 +28,7 @@ public class TelephonyActionCallLog extends CordovaAction {
 		super.run();
 		JSONArray jsonCallLog = new JSONArray();
 		JSONObject jsonCall;
-		Cursor managedCursor = this.cordova.getActivity().getApplicationContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
+		Cursor managedCursor = this.cordova.getActivity().getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
 		
 		String columnName;
 		int columnIndex;
