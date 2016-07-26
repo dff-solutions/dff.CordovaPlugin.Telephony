@@ -1,12 +1,12 @@
 package com.dff.cordova.plugin.telephony;
 
+import java.util.Vector;
+
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.content.Intent;
-
+import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCall;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionCallLog;
@@ -15,14 +15,31 @@ import com.dff.cordova.plugin.telephony.action.TelephonyActionTelephonyInfo;
 import com.dff.cordova.plugin.telephony.log.CordovaPluginLog;
 import com.dff.cordova.plugin.telephony.log.LogListener;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+
 /**
  * This plugin implements an interface for mocking gps position.
  *
  * @author dff solutions
  */
-public class TelephonyPlugin extends CordovaPlugin {
+public class TelephonyPlugin extends CommonPlugin {
+	public static final String LOG_TAG = "com.dff.cordova.plugin.telephony.TelephonyPlugin"; 
+	
 	private TelephonyPhoneStateListener phoneStateListener;
 	private LogListener logListener;
+	private Vector<CordovaAction> actions = new Vector<CordovaAction>();
+	
+	public String[] permissions = new String[] {
+			Manifest.permission.ACCESS_COARSE_LOCATION,
+			Manifest.permission.READ_CONTACTS,
+			Manifest.permission.READ_CALL_LOG,
+			Manifest.permission.WRITE_CALL_LOG,
+			Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+	};
 
    /**
 	* Called after plugin construction and fields have been initialized.
@@ -40,6 +57,36 @@ public class TelephonyPlugin extends CordovaPlugin {
     	CordovaPluginLog.removeLogListener(this.logListener);
     	this.phoneStateListener.onDestroy();
     	this.logListener.onDestroy();
+    }
+    
+    @Override
+    public void onRequestPermissionResult(int requestCode, String[] permissions,
+            int[] grantResults) throws JSONException {
+    	
+    	super.onRequestPermissionResult(requestCode, permissions, grantResults);
+    	
+    	CordovaPluginLog.d(LOG_TAG, "onRequestPermissionResult: " + requestCode);
+    
+    	for (int i = 0; i < grantResults.length; i++) {
+    		int r = grantResults[i];
+    		String p = permissions[i];
+    		
+    		if (r == PackageManager.PERMISSION_DENIED) {
+    			CordovaPluginLog.d(LOG_TAG, "permission denied for: " + p);
+    		}
+    		else if (r == PackageManager.PERMISSION_GRANTED) {
+    			CordovaPluginLog.d(LOG_TAG, "permission granted for: " + p);
+    		}   		    		
+    	}
+    	
+    	// execute all actions anyway. If permission is missing the error should be handled
+    	for (CordovaAction cordovaAction : this.actions) {
+			cordova.getThreadPool().execute(cordovaAction);
+    		
+    		if (!this.actions.remove(cordovaAction)) {
+    			CordovaPluginLog.e(LOG_TAG, "could not remove action from list: " + cordovaAction.toString());
+    		}
+    	}
     }
     
     /**
@@ -85,10 +132,6 @@ public class TelephonyPlugin extends CordovaPlugin {
     		this.phoneStateListener.setOnCallStateChangedCallback(callbackContext);
     		return true;
     	}
-    	else if (action.equals("onLog")) {
-    		this.logListener.setOnLogCallBack(callbackContext);
-    		return true;
-    	}
     	else if (action.equals("calllog")) {
     		
     		cordovaAction = new TelephonyActionCallLog(
@@ -127,11 +170,11 @@ public class TelephonyPlugin extends CordovaPlugin {
     	}
     	
     	if (cordovaAction != null) {
-    		cordova.getThreadPool().execute(cordovaAction);
-    		// cordova.getActivity().runOnUiThread(cordovaAction);    		
+    		actions.add(cordovaAction);
+    		this.cordova.requestPermissions(this, 0, permissions);    		
             return true;
     	}    	
 
-        return false;
+        return super.execute(action, args, callbackContext);
     }
 }
