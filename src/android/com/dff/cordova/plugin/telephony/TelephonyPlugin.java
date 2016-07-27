@@ -12,8 +12,6 @@ import com.dff.cordova.plugin.telephony.action.TelephonyActionCallLog;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionClearCallLog;
 import com.dff.cordova.plugin.telephony.action.TelephonyActionTelephonyInfo;
 
-import android.content.Intent;
-
 
 /**
  * This plugin implements an interface for mocking gps position.
@@ -26,7 +24,7 @@ public class TelephonyPlugin extends CommonPlugin {
 	private TelephonyPhoneStateListener phoneStateListener;
 	
 	public TelephonyPlugin() {
-		super();
+		super(LOG_TAG);
 	}
 
    /**
@@ -42,22 +40,7 @@ public class TelephonyPlugin extends CommonPlugin {
     	super.onDestroy();
     	this.phoneStateListener.onDestroy();
     }
-    
-    /**
-     * Called when an activity you launched exits, giving you the requestCode you started it with,
-     * the resultCode it returned, and any additional data from it.
-     *
-     * @param requestCode   The request code originally supplied to startActivityForResult(),
-     *                      allowing you to identify who this result came from.
-     * @param resultCode    The integer result code returned by the child activity through its setResult().
-     * @param intent        An Intent, which can return result data to the caller (various data can be
-     *                      attached to Intent "extras").
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    	CordovaPluginLog.i(LOG_TAG, "onActivityResult - requestCode: " + requestCode + "; resultCode: " + resultCode + "; intent: " + intent.toString());
-    }
-    
+       
     /**
     * Executes the request.
     *
