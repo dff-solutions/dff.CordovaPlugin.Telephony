@@ -63,7 +63,7 @@ public class TelephonyPlugin extends CommonPlugin {
         throws JSONException {
     	CordovaAction cordovaAction = null;
 		
-    	CordovaPluginLog.i(LOG_TAG, "call for action: " + action + "; args: " + args);
+    	CordovaPluginLog.d(LOG_TAG, "call for action: " + action + "; args: " + args);
     	
     	if (action.equals("onCallStateChanged")) {
     		this.phoneStateListener.setOnCallStateChangedCallback(callbackContext);
