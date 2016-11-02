@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-    id="com.dff.cordova.plugins.telephony"
+    id="dff-cordova-plugin-telephony"
     version="0.0.1">
 
     <name>Telephony</name>
@@ -34,10 +34,10 @@
         </config-file>
 
 		<source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPhoneStateListener.java" target-dir="src/com/dff/cordova/plugin/telephony" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionClearCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionCall.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyActionTelephonyInfo.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyInfo.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/GetCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/ClearCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
+		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/Call.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
 		<source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPlugin.java" target-dir="src/com/dff/cordova/plugin/telephony" />
      </platform>
 </plugin>

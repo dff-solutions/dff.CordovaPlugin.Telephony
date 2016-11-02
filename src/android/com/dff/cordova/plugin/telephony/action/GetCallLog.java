@@ -17,8 +17,10 @@ import android.provider.ContactsContract;
 import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
-public class TelephonyActionCallLog extends CordovaAction {
-	public TelephonyActionCallLog(String action, JSONArray args,
+public class GetCallLog extends CordovaAction {
+	public static final String ACTION_NAME = "calllog";
+	
+	public GetCallLog(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
 		super(action, args, callbackContext, cordova);
 	}

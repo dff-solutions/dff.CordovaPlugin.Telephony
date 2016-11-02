@@ -11,8 +11,10 @@ import android.provider.CallLog;
 import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
-public class TelephonyActionClearCallLog extends CordovaAction {
-	public TelephonyActionClearCallLog(String action, JSONArray args,
+public class ClearCallLog extends CordovaAction {
+	public static final String ACTION_NAME = "clearCalllog";
+	
+	public ClearCallLog(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
 		super(action, args, callbackContext, cordova);
 	}
@@ -40,7 +42,11 @@ public class TelephonyActionClearCallLog extends CordovaAction {
 				}
 			}
 			
-			int deleted = this.cordova.getActivity().getApplicationContext().getContentResolver().delete(CallLog.Calls.CONTENT_URI, where, selectionArgs);			
+			int deleted = this.cordova
+					.getActivity()
+					.getApplicationContext()
+					.getContentResolver()
+					.delete(CallLog.Calls.CONTENT_URI, where, selectionArgs);
 			this.callbackContext.success(deleted);
 		}
 		catch(JSONException e) {

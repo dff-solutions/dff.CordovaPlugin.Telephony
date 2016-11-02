@@ -1,16 +1,21 @@
 package com.dff.cordova.plugin.telephony;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.telephony.action.TelephonyActionCall;
-import com.dff.cordova.plugin.telephony.action.TelephonyActionCallLog;
-import com.dff.cordova.plugin.telephony.action.TelephonyActionClearCallLog;
-import com.dff.cordova.plugin.telephony.action.TelephonyActionTelephonyInfo;
+import com.dff.cordova.plugin.telephony.action.Call;
+import com.dff.cordova.plugin.telephony.action.GetCallLog;
+import com.dff.cordova.plugin.telephony.action.ClearCallLog;
+import com.dff.cordova.plugin.telephony.action.TelephonyInfo;
+
+import android.util.Log;
 
 
 /**
@@ -25,6 +30,10 @@ public class TelephonyPlugin extends CommonPlugin {
 	
 	public TelephonyPlugin() {
 		super(LOG_TAG);
+		this.actions.put(TelephonyInfo.ACTION_NAME, TelephonyInfo.class);
+		this.actions.put(ClearCallLog.ACTION_NAME, ClearCallLog.class);
+		this.actions.put(GetCallLog.ACTION_NAME, GetCallLog.class);
+		this.actions.put(Call.ACTION_NAME, Call.class);
 	}
 
    /**
@@ -63,51 +72,52 @@ public class TelephonyPlugin extends CommonPlugin {
         throws JSONException {
     	CordovaAction cordovaAction = null;
 		
-    	CordovaPluginLog.d(LOG_TAG, "call for action: " + action + "; args: " + args);
+    	Log.d(LOG_TAG, "call for action: " + action + "; args: " + args);
     	
     	if (action.equals("onCallStateChanged")) {
     		this.phoneStateListener.setOnCallStateChangedCallback(callbackContext);
     		return true;
     	}
-    	else if (action.equals("calllog")) {
-    		
-    		cordovaAction = new TelephonyActionCallLog(
-    				action,
-    				args,
-    				callbackContext,
-    				this.cordova
-				);
-    	}
-    	else if (action.equals("clearCalllog")) {
-    		
-    		cordovaAction = new TelephonyActionClearCallLog(
-    				action,
-    				args,
-    				callbackContext,
-    				this.cordova
-				);
-    	}
-    	else if (action.equals("call")) {
-    		
-    		cordovaAction = new TelephonyActionCall(
-    				action,
-    				args,
-    				callbackContext,
-    				this.cordova
-				);
-    	}
-    	else if (action.equals("telephonyinfo")) {
-    		
-    		cordovaAction = new TelephonyActionTelephonyInfo(
-    				action,
-    				args,
-    				callbackContext,
-    				this.cordova
-				);
-    	}
+		else if (this.actions.containsKey(action)) {
+			Class<? extends CordovaAction> actionClass = this.actions.get(action);
+
+			Log.d(LOG_TAG, "found action: " + actionClass.getName());
+
+			try {
+				cordovaAction = actionClass
+				        .getConstructor(
+				                String.class,
+				                JSONArray.class,
+				                CallbackContext.class,
+				                CordovaInterface.class)
+				        .newInstance(
+				                action,
+				                args,
+				                callbackContext,
+				                this.cordova);
+			}
+			catch (InstantiationException e) {
+				CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);
+			}
+			catch (IllegalAccessException e) {
+				CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);
+			}
+			catch (IllegalArgumentException e) {
+				CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);
+			}
+			catch (InvocationTargetException e) {
+				CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);
+			}
+			catch (NoSuchMethodException e) {
+				CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);
+			}
+			catch (SecurityException e) {
+				CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);
+			}
+		}
     	
     	if (cordovaAction != null) {
-    		cordova.getThreadPool().execute(cordovaAction);   		
+    		super.actionHandler.post(cordovaAction);
             return true;
     	}    	
 

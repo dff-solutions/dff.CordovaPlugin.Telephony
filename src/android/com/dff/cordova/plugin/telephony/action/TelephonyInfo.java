@@ -12,9 +12,10 @@ import android.telephony.TelephonyManager;
 import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
-public class TelephonyActionTelephonyInfo extends CordovaAction {
+public class TelephonyInfo extends CordovaAction {
+	public static final String ACTION_NAME = "telephonyinfo";
 
-	public TelephonyActionTelephonyInfo(String action, JSONArray args,
+	public TelephonyInfo(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
 		super(action, args, callbackContext, cordova);
 	}
@@ -26,7 +27,9 @@ public class TelephonyActionTelephonyInfo extends CordovaAction {
 		try {
 			JSONObject jsonSimInfo = new JSONObject();
 			
-			TelephonyManager telephonyManager = (TelephonyManager) cordova.getActivity().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+			TelephonyManager telephonyManager = (TelephonyManager) cordova.getActivity()
+					.getApplicationContext()
+					.getSystemService(Context.TELEPHONY_SERVICE);
 			
 			jsonSimInfo.put("allCellInfo", telephonyManager.getAllCellInfo());
 			jsonSimInfo.put("cellLocation", telephonyManager.getCellLocation());

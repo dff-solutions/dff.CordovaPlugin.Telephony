@@ -12,10 +12,14 @@ import android.net.Uri;
 import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
-public class TelephonyActionCall extends CordovaAction {
-	public static final String LOG_TAG = "TelephonyActionCall";
+public class Call extends CordovaAction {
+	private static final String LOG_TAG = "TelephonyActionCall";
+	public static final String ACTION_NAME = "call";
+	
+	public static final String JSON_ARG_NUMBER = "number";
+	public static final String[] JSON_ARGS = new String[] { JSON_ARG_NUMBER };
 
-	public TelephonyActionCall(String action, JSONArray args,
+	public Call(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
 		super(action, args, callbackContext, cordova);
 	}
@@ -27,25 +31,17 @@ public class TelephonyActionCall extends CordovaAction {
 		Uri numberUri;
 		
 		try {
-			JSONObject jsonArgs = this.args.getJSONObject(0);
+			JSONObject jsonArgs = super.checkJsonArgs(args, JSON_ARGS);
 			
-			if (jsonArgs == null) {
-				this.callbackContext.error("no args given");
-			}
-			else if (!jsonArgs.has("number")) {
-				this.callbackContext.error("number missing");
-			}
-			else {
-				number = jsonArgs.getString("number");
-				numberUri = Uri.parse("tel:" + Uri.encode(number));
-				
-				CordovaPluginLog.i(LOG_TAG, "calling number: " + number + "; number uri: " +  numberUri.toString());
-				
-				Intent callIntent = new Intent(Intent.ACTION_CALL);
-				callIntent.setData(numberUri);
-				this.cordova.getActivity().startActivity(callIntent);
-				this.callbackContext.success();
-			}
+			number = jsonArgs.getString(JSON_ARG_NUMBER);
+			numberUri = Uri.parse("tel:" + Uri.encode(number));
+			
+			CordovaPluginLog.i(LOG_TAG, "calling number: " + number + "; number uri: " +  numberUri.toString());
+			
+			Intent callIntent = new Intent(Intent.ACTION_CALL);
+			callIntent.setData(numberUri);
+			this.cordova.getActivity().startActivity(callIntent);
+			this.callbackContext.success();
 		}
 		catch(JSONException e) {
 			CordovaPluginLog.e(LOG_TAG, e.getMessage(), e);

@@ -9,34 +9,25 @@
 
 var cordova = require('cordova');
 var feature = "Telephony";
-var self = {};
+function Telephony() {};
 
-/**
- * Get call log.
- *
- */
-self.getCallsLog = function (success, error, args) {
-    cordova.exec(success, error, feature, "calllog", [args]);
-};
+var actions = [
+    "calllog",
+    "clearCalllog",
+    "call",
+    "onCallStateChanged",
+    "telephonyinfo",
+];
 
-self.clearCalllog = function (success, error, args) {
-    cordova.exec(success, error, feature, "clearCalllog", [args]);
+function createActionFunction (action) {
+    return function (success, error, args) {
+        args = args || {};
+        cordova.exec(success, error, feature, action, [args]);
+    }
 }
 
-self.call = function (success, error, args) {
-    cordova.exec(success, error, feature, "call", [args]);
-};
+actions.forEach(function (action) {
+    Telephony.prototype[action] = createActionFunction(action);
+});
 
-self.onCallStateChanged = function (success, error) {
-    cordova.exec(success, error, feature, "onCallStateChanged", []);
-};
-
-self.onLog = function (success, error) {
-    cordova.exec(success, error, feature, "onLog", []);
-};
-
-self.telephonyinfo = function (success, error) {
-    cordova.exec(success, error, feature, "telephonyinfo", []);
-};
-
-module.exports = self;
+module.exports = new Telephony();
