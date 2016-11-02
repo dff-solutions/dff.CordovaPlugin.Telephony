@@ -12,7 +12,7 @@ var feature = "Telephony";
 function Telephony() {};
 
 var actions = [
-    "calllog",
+    "getCallsLog",
     "clearCalllog",
     "call",
     "onCallStateChanged",

@@ -18,7 +18,7 @@ import com.dff.cordova.plugin.common.action.CordovaAction;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
 public class GetCallLog extends CordovaAction {
-	public static final String ACTION_NAME = "calllog";
+	public static final String ACTION_NAME = "getCallsLog";
 	
 	public GetCallLog(String action, JSONArray args,
 			CallbackContext callbackContext, CordovaInterface cordova) {
