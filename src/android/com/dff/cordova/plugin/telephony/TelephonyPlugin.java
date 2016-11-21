@@ -117,7 +117,7 @@ public class TelephonyPlugin extends CommonPlugin {
 		}
     	
     	if (cordovaAction != null) {
-    		super.actionHandler.post(cordovaAction);
+    		this.cordova.getThreadPool().execute(cordovaAction);
             return true;
     	}    	
 
