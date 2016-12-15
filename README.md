@@ -16,6 +16,8 @@ Feature is available via global `Telephony`.
 
 ### Actions
 
+#### getCallsLog
+
 ```js
 /**
  * Retrieve calls log of devices.
@@ -31,6 +33,8 @@ Telephony
         console.error(reason);
     });
 ```
+
+#### clearCalllog
 
 ```js
 /**
@@ -50,6 +54,8 @@ Telephony
         console.error(reason);
     });
 ```
+
+#### call
 
 ```js
 /**
@@ -71,6 +77,8 @@ Telephony
     });
 ```
 
+#### onCallStateChanged
+
 ```js
 /**
  * Listen to call state changes.
@@ -86,6 +94,8 @@ Telephony
         console.error(reason);
     });
 ```
+
+#### telephonyinfo
 
 ```js
 /**
