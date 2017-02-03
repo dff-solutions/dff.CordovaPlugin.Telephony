@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     id="dff-cordova-plugin-telephony"
-    version="0.0.1">
+    version="1.0.0">
 
     <name>Telephony</name>
     <description>Telephony Plugin</description>
@@ -11,7 +11,7 @@
     <js-module src="www/telephony.js" name="telephony">
         <clobbers target="Telephony" />
     </js-module>
-    
+
     <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git" />
 
     <!-- android -->
