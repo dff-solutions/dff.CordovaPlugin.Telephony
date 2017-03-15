@@ -3,7 +3,7 @@
     xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="dff-cordova-plugin-telephony"
-    version="1.0.1">
+    version="1.1.0">
 
     <name>Telephony</name>
     <description>Telephony Plugin</description>
@@ -11,35 +11,41 @@
     <keywords>phonegap,cordova,telephony,dff</keywords>
 
     <js-module src="www/telephony.js" name="telephony">
-        <clobbers target="Telephony" />
+        <clobbers target="Telephony"/>
     </js-module>
 
-    <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git" />
+    <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git"/>
 
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Telephony">
                 <param name="android-package" value="com.dff.cordova.plugin.telephony.TelephonyPlugin"/>
-                <param name="onload" value="true" />
+                <param name="onload" value="true"/>
             </feature>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.READ_CONTACTS" />
-            <uses-permission android:name="android.permission.READ_CALL_LOG" />
-            <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
-            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-            <uses-permission android:name="android.permission.CALL_PHONE" />
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_CONTACTS"/>
+            <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+            <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+            <uses-permission android:name="android.permission.CALL_PHONE"/>
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
         </config-file>
 
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPhoneStateListener.java" target-dir="src/com/dff/cordova/plugin/telephony" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyInfo.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/GetCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/ClearCallLog.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/action/Call.java" target-dir="src/com/dff/cordova/plugin/telephony/action" />
-		<source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPlugin.java" target-dir="src/com/dff/cordova/plugin/telephony" />
-     </platform>
+        <source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPhoneStateListener.java"
+                     target-dir="src/com/dff/cordova/plugin/telephony"/>
+        <source-file src="src/android/com/dff/cordova/plugin/telephony/action/TelephonyInfo.java"
+                     target-dir="src/com/dff/cordova/plugin/telephony/action"/>
+        <source-file src="src/android/com/dff/cordova/plugin/telephony/action/GetCallLog.java"
+                     target-dir="src/com/dff/cordova/plugin/telephony/action"/>
+        <source-file src="src/android/com/dff/cordova/plugin/telephony/action/ClearCallLog.java"
+                     target-dir="src/com/dff/cordova/plugin/telephony/action"/>
+        <source-file src="src/android/com/dff/cordova/plugin/telephony/action/Call.java"
+                     target-dir="src/com/dff/cordova/plugin/telephony/action"/>
+        <source-file src="src/android/com/dff/cordova/plugin/telephony/TelephonyPlugin.java"
+                     target-dir="src/com/dff/cordova/plugin/telephony"/>
+    </platform>
 </plugin>
