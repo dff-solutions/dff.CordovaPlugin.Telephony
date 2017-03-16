@@ -3,3 +3,4 @@
 /.classpath
 /bin
 *.iml
+/src/dff.CordovaPlugin.Telephony.iml
