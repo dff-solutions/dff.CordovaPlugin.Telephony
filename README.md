@@ -113,3 +113,5 @@ Telephony
     });
 ```
 
+## Documentation
+- <a href="https://dff-solutions.github.io/dff.CordovaPlugin.Telephony/" target="_blank" >JAVA DOC</a>
