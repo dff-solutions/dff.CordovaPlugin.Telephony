@@ -38,8 +38,6 @@ public class TelephonyPlugin extends CommonPlugin {
             Manifest.permission.READ_EXTERNAL_STORAGE
         };
 
-    private static final int PERMISSION_CODE = 0;
-
     private TelephonyPhoneStateListener phoneStateListener;
 
     public TelephonyPlugin() {
@@ -50,20 +48,15 @@ public class TelephonyPlugin extends CommonPlugin {
         this.actions.put(Call.ACTION_NAME, Call.class);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!cordova.hasPermission(PERMISSIONS[0])) {
-            getPermissions(PERMISSION_CODE);
-        } else if (!cordova.hasPermission(PERMISSIONS[6])) {
-            getPermissions(PERMISSION_CODE);
-        } else if (!cordova.hasPermission(PERMISSIONS[7])) {
-            getPermissions(PERMISSION_CODE);
-        }
-    }
 
-    private void getPermissions(int requestCode) {
-        cordova.requestPermissions(this, requestCode, PERMISSIONS);
+    /**
+     * request permissions if they are not granted by forwarding them to
+     * the common plugin
+     */
+    private void requestPermissions() {
+        for (String permission : PERMISSIONS) {
+            CommonPlugin.addPermission(permission);
+        }
     }
 
     public void onRequestPermissionResult(int requestCode, String[] permissions,
@@ -81,6 +74,7 @@ public class TelephonyPlugin extends CommonPlugin {
      */
     public void pluginInitialize() {
         super.pluginInitialize();
+        requestPermissions();
         this.phoneStateListener = new TelephonyPhoneStateListener(this.cordova);
     }
 
