@@ -1,0 +1,29 @@
+{
+  "name": "dff-cordova-plugin-telephony",
+  "version": "1.1.2",
+  "description": "dff cordova plugin telephony",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dff-solutions/dff.CordovaPlugin.Telephony.git"
+  },
+  "keywords": [
+    "dff",
+    "cordova",
+    "plugin",
+    "android",
+    "telephony"
+  ],
+  "author": "dffsolutions",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dff-solutions/dff.CordovaPlugin.Telephony/issues"
+  },
+  "homepage": "https://github.com/dff-solutions/dff.CordovaPlugin.Telephony#readme"
+}
