@@ -216,9 +216,16 @@ public class TelephonyInfo extends CordovaAction {
 				break;
 			}
 			
+			/* Restriced
+			https://developer.android.com/about/versions/10/privacy/changes#non-resettable-device-ids
+			
+			jsonSimInfo.put("deviceId", telephonyManager.getDeviceId());
+			jsonSimInfo.put("simSerialNumber", telephonyManager.getSimSerialNumber());
+			jsonSimInfo.put("subscriberId", telephonyManager.getSubscriberId());
+			*/
+			
 			jsonSimInfo.put("simState", simState);
 			jsonSimInfo.put("simStateName", simStateName);
-			jsonSimInfo.put("deviceId", telephonyManager.getDeviceId());
 			jsonSimInfo.put("deviceSoftwareVersion", telephonyManager.getDeviceSoftwareVersion());
 			jsonSimInfo.put("groupIdLevel1", telephonyManager.getGroupIdLevel1());
 			jsonSimInfo.put("line1Number", telephonyManager.getLine1Number());
@@ -231,8 +238,6 @@ public class TelephonyInfo extends CordovaAction {
 			jsonSimInfo.put("simCountryIso", telephonyManager.getSimCountryIso());
 			jsonSimInfo.put("simOperator", telephonyManager.getSimOperator());
 			jsonSimInfo.put("simOperatorName", telephonyManager.getSimOperatorName());
-			jsonSimInfo.put("simSerialNumber", telephonyManager.getSimSerialNumber());
-			jsonSimInfo.put("subscriberId", telephonyManager.getSubscriberId());
 			jsonSimInfo.put("voiceMailAlphaTag", telephonyManager.getVoiceMailAlphaTag());
 			jsonSimInfo.put("voiceMailNumber", telephonyManager.getVoiceMailNumber());
 			
